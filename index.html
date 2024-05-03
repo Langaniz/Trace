@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yıldız İz Efekti</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+    #container {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+    .trail {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        animation: trailFadeOut 1.5s linear forwards;
+    }
+    @keyframes trailFadeOut {
+        from {
+            opacity: 1;
+            transform: scale(1);
+        }
+        to {
+            opacity: 0;
+            transform: scale(2);
+        }
+    }
+</style>
+</head>
+<body>
+<div id="container"></div>
+
+<script>
+    var container = document.getElementById('container');
+    
+    document.addEventListener('mousemove', function(event) {
+        var trail = document.createElement('div');
+        trail.className = 'trail';
+        var size = Math.random() * 10 + 5;
+        var x = event.clientX - size / 2;
+        var y = event.clientY - size / 2;
+        var color = getRandomColor();
+        trail.style.width = size + 'px';
+        trail.style.height = size + 'px';
+        trail.style.background = color;
+        trail.style.left = x + 'px';
+        trail.style.top = y + 'px';
+        container.appendChild(trail);
+    });
+    
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+</script>
+</body>
+</html>
